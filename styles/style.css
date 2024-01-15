@@ -1,0 +1,227 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #edede9;
+  padding: 0;
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+}
+/* page d'accueil */
+#home1 {
+  background-image: url(../img/BG1.jpg);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
+#home2 {
+  background-image: url(../img/BG2.jpg);
+  height: 90%;
+  width: 90%;
+  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+/* navBar */
+.navBar {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  color: white;
+  font-size: 1.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.859);
+  text-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
+}
+.divLogo {
+  width: 50%;
+}
+.navBar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}
+.navBar li {
+  margin-right: 10px;
+}
+.navBar li:hover {
+  margin-right: 10px;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.859);
+}
+/* menu déroulant */
+.menuDeroulant {
+  max-width: 210px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: absolute;
+  top: 60px;
+  transform: translateX(-25%);
+  /* background-color: #edede985; */
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease-in-out;
+}
+.menuDeroulant ul {
+  list-style: none;
+  padding: 0;
+}
+.menuDeroulant li {
+  position: relative;
+}
+li:hover .menuDeroulant {
+  opacity: 1;
+  visibility: visible;
+  top: 100px;
+}
+.menuDeroulant a {
+  font-size: 1.1em;
+  padding-bottom: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0px 6px 25px rgba(0, 0, 0, 1);
+}
+.bg1 {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg2 {
+  height: 90%;
+  width: 90%;
+  border-radius: 10px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: flex;
+}
+
+/* img des BG */
+#seychelles1 {
+  background-image: url(../img/bgSeychelles2.jpg);
+}
+#seychelles {
+  background-image: url(../img/bgSeychelles1.jpg);
+}
+#polynesie1 {
+  background-image: url(../img/bgPolynesie2.jpg);
+}
+#polynesie {
+  background-image: url(../img/bgPolynesie1.jpg);
+}
+#fidji1 {
+  background-image: url(../img/bgFidji2.jpg);
+}
+#fidji {
+  background-image: url(../img/bgFidji1.jpg);
+}
+#hawaii1 {
+  background-image: url(../img/bgHawaii2.jpg);
+}
+#hawaii {
+  background-image: url(../img/bgHawaii1.jpg);
+}
+#cuba1 {
+  background-image: url(../img/bgCuba1.jpg);
+}
+#cuba {
+  background-image: url(../img/bgCuba2.jpeg);
+}
+/* Affichage Pages */
+.pageLeft {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.titre {
+  font-size: 2.3em;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  text-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
+}
+.description {
+  font-size: 0.75em;
+  padding: 40px;
+  text-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
+  text-align: center;
+}
+/* Affichage des Map */
+#map {
+  width: 150px;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+/* Map de Cuba */
+#mapCuba {
+  width: 300px;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+
+.infos {
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.516);
+  width: 30px;
+  height: 30px;
+}
+/* Modal */
+/* .modal {
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.715);
+  padding: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+} */
+
+/* Format Téléphone */
+@media screen and (max-width: 767px) {
+}
+
+/* Format Tablette */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Format Ordinateur */
+@media screen and (min-width: 1024px) {
+}

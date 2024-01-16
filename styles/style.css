@@ -64,7 +64,7 @@ body {
   position: absolute;
   top: 60px;
   transform: translateX(-25%);
-  /* background-color: #edede985; */
+  background-color: #edede94a;
   opacity: 0;
   visibility: hidden;
   transition: 0.2s ease-in-out;
@@ -88,6 +88,7 @@ li:hover .menuDeroulant {
   text-decoration: none;
   text-shadow: 0px 6px 25px rgba(0, 0, 0, 1);
 }
+/* backgrounds */
 .bg1 {
   height: 100vh;
   width: 100vw;
@@ -108,7 +109,7 @@ li:hover .menuDeroulant {
   display: flex;
 }
 
-/* img des BG */
+/* img des backgrounds */
 #seychelles1 {
   background-image: url(../img/bgSeychelles2.jpg);
 }
@@ -139,7 +140,7 @@ li:hover .menuDeroulant {
 #cuba {
   background-image: url(../img/bgCuba2.jpeg);
 }
-/* Affichage Pages */
+/* Affichage Pages Gauches */
 .pageLeft {
   width: 40%;
   height: 100%;
@@ -148,6 +149,7 @@ li:hover .menuDeroulant {
   justify-content: center;
   align-items: center;
   color: white;
+  text-align: center;
 }
 .titre {
   font-size: 2.3em;
@@ -158,9 +160,8 @@ li:hover .menuDeroulant {
   font-size: 0.75em;
   padding: 40px;
   text-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
-  text-align: center;
 }
-/* Affichage des Map */
+/* Affichage des Maps */
 #map {
   width: 150px;
   position: absolute;
@@ -174,13 +175,65 @@ li:hover .menuDeroulant {
   bottom: 15px;
   left: 15px;
 }
+/* Affichage pages Droites */
 
-.infos {
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.516);
-  width: 30px;
-  height: 30px;
+/* carrousel */
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60%;
+  justify-content: center;
+  overflow: hidden;
 }
+
+.wrapper {
+  display: flex;
+  gap: 1em;
+  overflow: hidden;
+  width: 70%;
+  white-space: nowrap;
+}
+.inner {
+  display: flex;
+  gap: 1em;
+  transition: transform 1s ease-in-out;
+  transform: translateX(0);
+}
+.card {
+  border-radius: 0.5em;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  height: 300px;
+  width: 200px;
+  background-color: #edede980;
+}
+.card img {
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+  display: block;
+  width: 17.5em;
+}
+/* button */
+#nextButton {
+  margin-top: 20px;
+  border: solid 1px white;
+  align-items: center;
+  background: #ffffff00;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  height: 30px;
+  text-decoration: none;
+  width: 100px;
+  border-radius: 30px;
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
+  text-shadow: 0px 2px 25px rgba(0, 0, 0, 1);
+}
+#nextButton:hover {
+  background-color: rgba(255, 255, 255, 0.245);
+}
+
 /* Modal */
 /* .modal {
   display: none;

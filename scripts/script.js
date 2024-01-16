@@ -1,3 +1,4 @@
+// textes et titres
 document.addEventListener('DOMContentLoaded', function () {
   const descriptions = {
     seychelles: {
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const hawaii = descriptions.hawaii;
   const cuba = descriptions.cuba;
 
-  // Mettre à jour les éléments HTML avec les valeurs correspondantes
+  // ajouter texte et description dans html
   document.querySelector('#titreSeychelles').innerHTML = seychelles.title;
   document.querySelector('#descriptionSeychelles').innerHTML = seychelles.text;
 
@@ -46,36 +47,73 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#descriptionCuba').innerHTML = cuba.text;
 });
 
+// afficher photos de l'API dans carroussel
+
+const apiKey = '0RhzzrDsA7bYL2bY1yDvzYHS5WMpoquHNtNTWZHKmkswxJGb7Nu5NidL';
+
 function performSearch(term) {
   fetch(`https://api.pexels.com/v1/search?query=${term}&per_page=5`, {
     method: 'GET',
     headers: {
-      Authorization: '0RhzzrDsA7bYL2bY1yDvzYHS5WMpoquHNtNTWZHKmkswxJGb7Nu5NidL',
+      Authorization: apiKey,
     },
   })
-    .then((response) => response.json())
-    .then((data) => {
-      // Récupérer l'élément carousel-inner
-      const carouselInner = document.querySelector('.carousel-inner');
-
-      // Effacer le contenu précédent du carousel
-      carouselInner.innerHTML = '';
-
-      // Parcourir les images et les ajouter au carousel
-      data.photos.forEach((photo, index) => {
-        const carouselItem = document.createElement('div');
-        carouselItem.classList.add('carousel-item');
-        if (index === 0) {
-          carouselItem.classList.add('active');
-        }
-
-        const imgElement = document.createElement('img');
-        imgElement.src = photo.src.medium;
-        imgElement.classList.add('d-block', 'w-100');
-
-        carouselItem.appendChild(imgElement);
-        carouselInner.appendChild(carouselItem);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
-    .catch((error) => console.error('Erreur lors de la requête:', error));
+    .then((data) => {
+      // Traitez les données et affichez-les en tant que fond des cartes correspondantes
+      displayResults(data.photos, term);
+    })
+    .catch((error) =>
+      console.error(`Erreur lors de la requête pour ${term}:`, error)
+    );
 }
+
+function displayResults(photos, term) {
+  const cards = document.querySelectorAll(`#${term} .card`);
+
+  photos.forEach((photo, index) => {
+    const card = cards[index];
+    if (card) {
+      // Définir l'image en tant que fond de la carte
+      card.style.backgroundImage = `url('${photo.src.medium}')`;
+      card.style.backgroundSize = 'cover';
+      card.style.backgroundPosition = 'center';
+    }
+  });
+}
+
+// Exemple d'utilisation avec "seychelles"
+performSearch('seychelles');
+performSearch('polynesie');
+performSearch('fidji');
+performSearch('hawaii');
+performSearch('cuba');
+
+// carrousel
+document.addEventListener('DOMContentLoaded', function () {
+  const centers = document.querySelectorAll('.center');
+
+  centers.forEach((center) => {
+    const carousel = center.querySelector('.inner');
+    const nextButton = center.querySelector('#nextButton');
+
+    let currentIndex = 0;
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % carousel.children.length;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      const translateValue = -currentIndex * (200 + 1);
+      carousel.style.transform = `translateX(${translateValue}px)`;
+    }
+
+    nextButton.addEventListener('click', nextImage);
+  });
+});

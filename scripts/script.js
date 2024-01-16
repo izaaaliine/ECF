@@ -65,7 +65,6 @@ function performSearch(term) {
       return response.json();
     })
     .then((data) => {
-      // Traitez les données et affichez-les en tant que fond des cartes correspondantes
       displayResults(data.photos, term);
     })
     .catch((error) =>
@@ -87,7 +86,7 @@ function displayResults(photos, term) {
   });
 }
 
-// Exemple d'utilisation avec "seychelles"
+// Affichage avec les différentes villes
 performSearch('seychelles');
 performSearch('polynesie');
 performSearch('fidji');
@@ -115,5 +114,46 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     nextButton.addEventListener('click', nextImage);
+  });
+});
+
+//Ouvrir et fermer les modals
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Fonction pour ouvrir le modal
+  function openModal(targetModalId) {
+    const modal = document.getElementById(targetModalId);
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  // Fonction pour fermer le modal
+  function closeModal(targetModalId) {
+    const modal = document.getElementById(targetModalId);
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+  // Attachez un gestionnaire d'événements à chaque bouton "Plus d'informations"
+  const moreButtons = document.querySelectorAll('.more');
+  moreButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      // Récupérez l'ID du modal à partir de l'attribut data-target
+      const targetModalId = button.getAttribute('data-target');
+      // Ouvrez le modal correspondant
+      openModal(targetModalId);
+    });
+  });
+
+  // Attachez un gestionnaire d'événements à tous les boutons "Close"
+  const closeButtons = document.querySelectorAll('.close');
+  closeButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      // Récupérez l'ID du modal à partir de l'attribut data-target
+      const targetModalId = button.getAttribute('data-target');
+      // Fermez le modal correspondant
+      closeModal(targetModalId);
+    });
   });
 });

@@ -146,52 +146,46 @@ function closeModal(targetModalId) {
     modal.style.display = 'none';
   }
 }
-
-// récupérer latitude et longitude des villes
-let map = L.map('maCarte', {
-  center: [46.6031, 1.7369],
-  zoom: 6,
-});
-function getCoordinates(city, modalId) {
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${city}`)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.length > 0) {
-        const latitude = parseFloat(data[0].lat);
-        const longitude = parseFloat(data[0].lon);
-        console.log(latitude, longitude);
-        // Appeler la fonction pour initialiser la carte avec les coordonnées
-        afficherMap(modalId, latitude, longitude);
-      }
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-  getCoordinates('Seychelles', 'myModalSeychelles');
-  getCoordinates('Polynesie', 'myModalPolynesie');
-  getCoordinates('Fidji', 'myModalFidji');
-  getCoordinates('Hawaii', 'myModalHawai');
-  getCoordinates('Cuba', 'myModalCuba');
-});
+  // Fonction pour obtenir les coordonnées d'une ville et initialiser la carte
+  function getCoordinates(cityName, modalId) {
+    // Utilisez l'API Nominatim pour obtenir les coordonnées de la ville
+    fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // Vérifiez si des résultats ont été retournés
+        if (data.length > 0) {
+          // Récupérez les coordonnées de la première correspondance
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
 
-// Utiliser les coordonnées pour afficher la carte dans le modal
+          // Initialisez la carte Leaflet
+          const map = L.map(modalId).setView([lat, lon], 10);
 
-function afficherMap(modalId, latitude, longitude) {
-  const centerCoordinates = [latitude, longitude];
-  const mapContainer = document.querySelector(`#${modalId} .mapContainer`);
-  if (mapContainer) {
-    const map = L.map(mapContainer).setView(centerCoordinates, 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
-      map
-    );
-    map.style.height = '100vw';
-    const marker = L.marker([latitude, longitude]).addTo(map);
-    marker
-      .bindPopup(
-        `<b>Coordonnées:</b><br>Latitude: ${latitude}<br>Longitude: ${longitude}<br><br>Où se situe ${cityName}?`
-      )
-      .openPopup();
-  } else {
-    console.error(`Conteneur de carte non trouvé dans le modal ${modalId}`);
+          // Ajoutez une couche de tuiles OpenStreetMap
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+          }).addTo(map);
+
+          // Ajoutez un marqueur à la carte
+          L.marker([lat, lon]).addTo(map).bindPopup(cityName).openPopup();
+        } else {
+          console.error(
+            `Aucune coordonnée trouvée pour la ville : ${cityName}`
+          );
+        }
+      })
+      .catch((error) =>
+        console.error('Erreur lors de la récupération des coordonnées:', error)
+      );
   }
-}
+
+  // Exemple d'utilisation de la fonction getCoordinates pour chaque ville
+  getCoordinates('Seychelles', 'mapSeychelles');
+  getCoordinates('Polynésie française', 'mapPolynesie');
+  getCoordinates('Fidji', 'mapFidji');
+  getCoordinates('Hawaii', 'mapHawaii');
+  getCoordinates('Cuba', 'mapCuba');
+});

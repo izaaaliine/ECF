@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const menuBurger = document.querySelector('.menuBurger');
+
+  menuBurger.addEventListener('click', function () {
+    this.classList.toggle('active');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
   // Textes et titres
   const descriptions = {
     seychelles: {
@@ -117,8 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
     button.addEventListener('click', function () {
       const targetModalId = button.getAttribute('data-target');
       openModal(targetModalId);
-      const city = button.getAttribute('data-city');
-      getCoordinates(city, targetModalId);
     });
   });
 
@@ -146,46 +152,64 @@ function closeModal(targetModalId) {
     modal.style.display = 'none';
   }
 }
+// Météo
+const coordonnees = {
+  seychelles: {
+    latitude: -4.6232085,
+    longitude: 55.452359,
+  },
+  polynesie: {
+    latitude: -17.5373835,
+    longitude: -149.5659964,
+  },
+  fidji: {
+    latitude: -18.1415884,
+    longitude: 178.4421662,
+  },
+  hawaii: {
+    latitude: 21.304547,
+    longitude: -157.855676,
+  },
+  cuba: {
+    latitude: 23.135305,
+    longitude: -82.3589631,
+  },
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Fonction pour obtenir les coordonnées d'une ville et initialiser la carte
-  function getCoordinates(cityName, modalId) {
-    // Utilisez l'API Nominatim pour obtenir les coordonnées de la ville
-    fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Vérifiez si des résultats ont été retournés
-        if (data.length > 0) {
-          // Récupérez les coordonnées de la première correspondance
-          const lat = parseFloat(data[0].lat);
-          const lon = parseFloat(data[0].lon);
+  function fetchWeather(latitude, longitude, city) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`;
 
-          // Initialisez la carte Leaflet
-          const map = L.map(modalId).setView([lat, lon], 10);
-
-          // Ajoutez une couche de tuiles OpenStreetMap
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-          }).addTo(map);
-
-          // Ajoutez un marqueur à la carte
-          L.marker([lat, lon]).addTo(map).bindPopup(cityName).openPopup();
-        } else {
-          console.error(
-            `Aucune coordonnée trouvée pour la ville : ${cityName}`
-          );
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        return response.json();
+      })
+      .then((data) => {
+        displayWeather(data, city);
       })
       .catch((error) =>
-        console.error('Erreur lors de la récupération des coordonnées:', error)
+        console.error('Erreur lors de la requête météo:', error)
       );
   }
+  // affichage météo dans chaque modal correspondant
+  function displayWeather(weatherData, city) {
+    let temperature = weatherData.current.temperature_2m;
+    let meteoContainer = document.querySelectorAll(
+      `.meteoContainer[data-city="${city}"]`
+    );
 
-  // Exemple d'utilisation de la fonction getCoordinates pour chaque ville
-  getCoordinates('Seychelles', 'mapSeychelles');
-  getCoordinates('Polynésie française', 'mapPolynesie');
-  getCoordinates('Fidji', 'mapFidji');
-  getCoordinates('Hawaii', 'mapHawaii');
-  getCoordinates('Cuba', 'mapCuba');
+    if (meteoContainer.length > 0) {
+      let phrase = `La température actuelle est de ${temperature} °C.`;
+      meteoContainer[0].innerHTML = phrase;
+    }
+  }
+
+  Object.keys(coordonnees).forEach(function (ville) {
+    let latitude = coordonnees[ville].latitude;
+    let longitude = coordonnees[ville].longitude;
+    fetchWeather(latitude, longitude, ville);
+  });
 });

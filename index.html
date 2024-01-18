@@ -10,8 +10,6 @@
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
@@ -36,6 +34,11 @@
             </li>
             <li>LIEUX VISITÉS</li>
           </ul>
+          <div class="menuBurger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
     </div>
@@ -66,8 +69,19 @@
         </div>
         <div id="myModalSeychelles" class="modal">
           <div class="modal-content">
-            <span class="close" data-target="myModalSeychelles">&times;</span>
-            <div class="mapContainer" id="mapSeychelles"></div>
+            <div>
+              <span class="close" data-target="myModalSeychelles">&times;</span>
+            </div>
+            <div
+              class="meteoContainer"
+              id="meteoSeychelles"
+              data-city="seychelles"
+            ></div>
+            <a
+              href="https://www.skyscanner.fr/vols-a/sez/vols-pas-chers-a-mahe-aeroport.html?&utm_source=google&utm_medium=cpc&utm_campaign=FR-Flights-Search-FR-Pmax&utm_term=&associateID=SEM_FLI_19465_00000&gclid=Cj0KCQiAtaOtBhCwARIsAN_x-3IVDZSsQyZefyGMcFqp3nKpWvUHHdJGDIwenK_5luqbOUNlRTp5tHAaAhf7EALw_wcB&gclsrc=aw.ds"
+              target="_blank"
+              ><button class="vol">Réserver mon vol</button></a
+            >
           </div>
         </div>
       </div>
@@ -99,7 +113,16 @@
         <div id="myModalPolynesie" class="modal">
           <div class="modal-content">
             <span class="close" data-target="myModalPolynesie">&times;</span>
-            <div class="mapContainer" id="mapPolynesie"></div>
+            <div
+              class="meteoContainer"
+              id="meteoPolynesie"
+              data-city="polynesie"
+            ></div>
+            <a
+              href="https://www.skyscanner.fr/flights-to/PF?&utm_source=google&utm_medium=cpc&utm_campaign=FR-Flights-Search-FR-DSA&utm_term=DYNAMIC+SEARCH+ADS&associateID=SEM_GGF_19370_00087&gclid=Cj0KCQiAtaOtBhCwARIsAN_x-3K4B413-Jth7yuKP2d7jXaMYFucDvNudJLlSVriORrHu6vgY7lUr9UaAgNHEALw_wcB&gclsrc=aw.ds"
+              target="_blank"
+              ><button class="vol">Réserver mon vol</button></a
+            >
           </div>
         </div>
       </div>
@@ -131,7 +154,12 @@
         <div id="myModalFidji" class="modal">
           <div class="modal-content">
             <span class="close" data-target="myModalFidji">&times;</span>
-            <div class="mapContainer" id="mapFidji"></div>
+            <div class="meteoContainer" id="meteoFidji" data-city="fidji"></div>
+            <a
+              href="https://www.skyscanner.fr/flights-to/FJ?&utm_source=google&utm_medium=cpc&utm_campaign=FR-Flights-Search-FR-Destination-International-Oceania&utm_term=vol+Fidji&associateID=SEM_GGF_19370_00087&gclid=Cj0KCQiAtaOtBhCwARIsAN_x-3Jnfvxs9yshTDDRqwNhsoTNJljdPNvuaytm3m7BwwRKejWExvLLWbMaAhKwEALw_wcB&gclsrc=aw.ds"
+              target="_blank"
+              ><button class="vol">Réserver mon vol</button></a
+            >
           </div>
         </div>
       </div>
@@ -163,7 +191,16 @@
         <div id="myModalHawai" class="modal">
           <div class="modal-content">
             <span class="close" data-target="myModalHawai">&times;</span>
-            <div class="mapContainer" id="mapHawaii"></div>
+            <div
+              class="meteoContainer"
+              id="meteoHawaii"
+              data-city="hawaii"
+            ></div>
+            <a
+              href="https://www.skyscanner.fr/vols/vols-vers-region/44294303/vols-pas-chers-a-hawai.html?&utm_source=google&utm_medium=cpc&utm_campaign=FR-Flights-Search-FR-Pmax&utm_term=&associateID=SEM_FLI_19465_00000&gclid=Cj0KCQiAtaOtBhCwARIsAN_x-3LEPFG-hrltBOPT_i-TQXrlKVPHYKpC31FaSWuk2ARsI556E9fDAkIaAvxiEALw_wcB&gclsrc=aw.ds"
+              target="_blank"
+              ><button class="vol">Réserver mon vol</button></a
+            >
           </div>
         </div>
       </div>
@@ -195,7 +232,12 @@
         <div id="myModalCuba" class="modal">
           <div class="modal-content">
             <span class="close" data-target="myModalCuba">&times;</span>
-            <div class="mapContainer" id="mapCuba"></div>
+            <div class="meteoContainer" id="meteoCuba" data-city="cuba"></div>
+            <a
+              href="https://www.skyscanner.fr/vols-a/cu/vols-pas-chers-a-cuba.html"
+              target="_blank"
+              ><button class="vol">Réserver mon vol</button></a
+            >
           </div>
         </div>
       </div>

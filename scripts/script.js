@@ -1,13 +1,20 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const menuBurger = document.querySelector('.menuBurger');
+// affichage menu burger déroulant
 
-  menuBurger.addEventListener('click', function () {
-    this.classList.toggle('active');
-  });
+const menuBurger = document.querySelector('.menuBurger');
+const menuMobile = document.querySelector('.menuMobile');
+menuMobile.style.display = 'none';
+menuBurger.addEventListener('click', function () {
+  this.classList.toggle('active');
+
+  if (this.classList.contains('active')) {
+    menuMobile.style.display = 'block';
+  } else {
+    menuMobile.style.display = 'none';
+  }
 });
 
+// Textes et titres des div
 document.addEventListener('DOMContentLoaded', function () {
-  // Textes et titres
   const descriptions = {
     seychelles: {
       text: "Les Seychelles, perles de l'océan Indien, offrent une évasion paradisiaque avec leurs plages de sable fin et leurs eaux cristallines. Explorez des fonds marins spectaculaires, des jungles luxuriantes, et vivez l'hospitalité créole. Une destination où la nature, la culture et la gastronomie se rencontrent pour créer une expérience inoubliable.",
@@ -54,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#titreCuba').innerHTML = cuba.title;
   document.querySelector('#descriptionCuba').innerHTML = cuba.text;
 
-  // Afficher des photos de l'API dans le carrousel
+  // Afficher des photos de l'API dans le carrousel de chaque div correspondantes
   const apiKey = '0RhzzrDsA7bYL2bY1yDvzYHS5WMpoquHNtNTWZHKmkswxJGb7Nu5NidL';
 
   function performSearch(term) {
@@ -212,4 +219,29 @@ document.addEventListener('DOMContentLoaded', function () {
     let longitude = coordonnees[ville].longitude;
     fetchWeather(latitude, longitude, ville);
   });
+});
+
+// affichage map dernière page
+
+let map = L.map('maCarte', {
+  center: [46.6031, 1.7369],
+  zoom: 2.5,
+});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© contributeurs OpenStreetMap',
+}).addTo(map);
+const locations = [
+  { name: 'Dubai', coordinates: [25.276987, 55.296249] },
+  { name: 'Egypte', coordinates: [26.820553, 30.802498] },
+  { name: 'Seychelles', coordinates: [-4.679574, 55.491977] },
+  { name: 'Cap Vert', coordinates: [16.5388, -23.0418] },
+  { name: 'Espagne', coordinates: [40.463667, -3.74922] },
+  { name: 'Italie', coordinates: [41.87194, 12.56738] },
+  { name: 'Suisse', coordinates: [46.8182, 8.2275] },
+  { name: 'Algérie', coordinates: [28.0339, 1.6596] },
+];
+
+locations.forEach((location) => {
+  const marker = L.marker(location.coordinates).addTo(map);
+  marker.bindPopup(location.name);
 });

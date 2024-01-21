@@ -12,6 +12,33 @@ menuBurger.addEventListener('click', function () {
     menuMobile.style.display = 'none';
   }
 });
+// navBar qui apparait et disparaît au scroll
+document.addEventListener('DOMContentLoaded', () => {
+  let navBar = document.querySelector('.navBar');
+  let ScrollValue = 0;
+
+  document.addEventListener('scroll', () => {
+    let top = document.documentElement.scrollTop;
+
+    if (top > ScrollValue) {
+      // Ajoute la classe seulement si la page n'est pas #home1
+      if (!document.location.href.endsWith('#home1')) {
+        navBar.classList.add('hidden');
+      }
+    } else {
+      navBar.classList.remove('hidden');
+    }
+
+    // Ajoute la classe 'fixed' si la page n'est pas #home1 et le défilement est vers le haut
+    if (!document.location.href.endsWith('#home1') && top === 0) {
+      navBar.classList.add('fixed');
+    } else {
+      navBar.classList.remove('fixed');
+    }
+
+    ScrollValue = top;
+  });
+});
 
 // Textes et titres des div
 document.addEventListener('DOMContentLoaded', function () {

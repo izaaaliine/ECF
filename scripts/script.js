@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelector('#titreCuba').innerHTML = cuba.title;
   document.querySelector('#descriptionCuba').innerHTML = cuba.text;
 
-  // Afficher des photos de l'API dans le carrousel de chaque div correspondantes
+  // Afficher des photos de l'API dans le carrousel de chaque div correspondante
   const apiKey = '0RhzzrDsA7bYL2bY1yDvzYHS5WMpoquHNtNTWZHKmkswxJGb7Nu5NidL';
 
-  function performSearch(term) {
+  function rechercheApi(term) {
     fetch(`https://api.pexels.com/v1/search?query=${term}&per_page=5`, {
       method: 'GET',
       headers: {
@@ -105,14 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then((data) => {
-        displayResults(data.photos, term);
+        afficherResult(data.photos, term);
       })
       .catch((error) =>
         console.error(`Erreur lors de la requête pour ${term}:`, error)
       );
   }
 
-  function displayResults(photos, term) {
+  function afficherResult(photos, term) {
     const cards = document.querySelectorAll(`#${term} .card`);
 
     photos.forEach((photo, index) => {
@@ -126,11 +126,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Affichage avec les différentes villes
-  performSearch('seychelles');
-  performSearch('polynesie');
-  performSearch('fidji');
-  performSearch('hawaii');
-  performSearch('cuba');
+  rechercheApi('seychelles');
+  rechercheApi('polynesie');
+  rechercheApi('fidji');
+  rechercheApi('hawaii');
+  rechercheApi('cuba');
 
   // Initialiser le carrousel
   const centers = document.querySelectorAll('.center');
@@ -211,7 +211,7 @@ const coordonnees = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  function fetchWeather(latitude, longitude, city) {
+  function fetchMeteo(latitude, longitude, city) {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`;
 
     fetch(url)
@@ -222,14 +222,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then((data) => {
-        displayWeather(data, city);
+        afficherMeteo(data, city);
       })
       .catch((error) =>
         console.error('Erreur lors de la requête météo:', error)
       );
   }
   // affichage météo dans chaque modal correspondant
-  function displayWeather(weatherData, city) {
+  function afficherMeteo(weatherData, city) {
     let temperature = weatherData.current.temperature_2m;
     let meteoContainer = document.querySelectorAll(
       `.meteoContainer[data-city="${city}"]`
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object.keys(coordonnees).forEach(function (ville) {
     let latitude = coordonnees[ville].latitude;
     let longitude = coordonnees[ville].longitude;
-    fetchWeather(latitude, longitude, ville);
+    fetchMeteo(latitude, longitude, ville);
   });
 });
 
